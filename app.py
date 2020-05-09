@@ -37,7 +37,7 @@ num_of_enemies = 6
 
 for i in range(num_of_enemies):
     enemyImg.append(pygame.image.load('corona.png'))
-    enemyX.append(random.randint(0, 735))
+    enemyX.append(random.randint(0, 736))
     enemyY.append(random.randint(50, 150))
     enemyX_change.append(4)
     enemyY_change.append(40)
@@ -54,19 +54,19 @@ bullet_state = "ready"
 score_value = 0
 font = pygame.font.Font('freesansbold.ttf', 32)
 textX = 10
-textY = 10
+testY = 10
 
 # Game over text
 over_font = pygame.font.Font('freesansbold.ttf', 64)
 
 
 def show_score(x, y):
-    score = font.render("Score : " + str(score_value), True, (225, 225, 225))
+    score = font.render("Score : " + str(score_value), True, (255, 255, 255))
     screen.blit(score, (x, y))
 
 
 def game_over_text():
-    over_text = over_font.render("GAME OVER", True, (225, 225, 225))
+    over_text = over_font.render("GAME OVER", True, (255, 255, 255))
     screen.blit(over_text, (200, 250))
 
 
@@ -85,7 +85,7 @@ def fire_bullet(x, y):
 
 
 def isCollision(enemyX, enemyY, bulletX, bulletY):
-    distance = math.sqrt((math.pow(enemyX - bulletX, 2)) + (math.pow(enemyY - bulletY, 2)))
+    distance = math.sqrt(math.pow(enemyX - bulletX, 2) + (math.pow(enemyY - bulletY, 2)))
     if distance < 27:
         return True
     else:
@@ -136,11 +136,11 @@ while running:
     for i in range(num_of_enemies):
 
         # game over
-        #if enemy[i] > 440:
-            #for j in range(num_of_enemies):
-            #    enemyY[j] = 2000
-            #game_over_text()
-            #break
+        if enemyY[i] > 440:
+            for j in range(num_of_enemies):
+                enemyY[j] = 2000
+            game_over_text()
+            break
 
         enemyX[i] += enemyX_change[i]
 
@@ -159,7 +159,7 @@ while running:
             bulletY = 480
             bullet_state = "ready"
             score_value += 1
-            enemyX[i] = random.randint(0, 735)
+            enemyX[i] = random.randint(0, 736)
             enemyY[i] = random.randint(50, 150)
         enemy(enemyX[i], enemyY[i], i)
 
@@ -173,5 +173,5 @@ while running:
         bulletY -= bulletY_change
 
     player(playerX, playerY)
-    show_score(textX, textY)
+    show_score(textX, testY)
     pygame.display.update()
